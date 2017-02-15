@@ -1,0 +1,94 @@
+body{
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-family: 'Indie Flower', cursive;
+}
+h1{
+  font-family: 'Pangolin', cursive;
+}
+p{
+  max-width: 70%;
+  margin: auto;
+  padding-top: 15%;
+  padding-bottom: 10%;
+}
+.score{
+  display: inline-block;
+  background-color: darkGray;
+
+}
+#countDownTimer{
+  background-color: darkGray;
+  width: 150px;
+  height: 30px;
+  margin: auto;
+  border-radius: 10%;
+  padding-top: 1%;
+  display: inline-block;
+}
+button{
+  color: darkRed;
+  width: 15%;
+  border-radius: 10%;
+  margin-bottom: 5px;
+}
+#start{
+  height: 40px;
+}
+#reset{
+  display: none;
+}
+.board{
+  width: 90%;
+  max-width: 600px;
+  max-height: 600px;
+  min-width: 320px;
+  background-image: url('../decor/grass.png');
+  background-size: 100%;
+  /*background-color: green;*/
+  margin: auto;
+  padding-bottom: 10px;
+  border-radius: 20px;
+  cursor: crosshair;
+  box-shadow: 0 0 8px 8px black inset;
+}
+.row{
+  max-width: 700px;
+  min-width: 320px;
+}
+.hole{
+  display: inline-block;
+  min-height: 70px;
+  min-width: 70px;
+  max-width: 20%;
+  max-height: 120px;
+  margin: 6%;
+}
+.tombstone{
+  display: block;
+  position: relative;
+  left: 20px;
+  z-index: 1;
+}
+.dirt{
+  display: block;
+  width: 120px;
+  height: 90px;
+  position: relative;
+  top: -98px;
+  /*left: -10px;*/
+  z-index: 3;
+}
+.zombie{
+  position: relative;
+  top: -70px;
+  right: -5px;
+  z-index: 2;
+  height: 75px;
+  width: 70px;
+  visibility: hidden;
+}
+img{
+  height: 95px;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zombie Smash</title>
+  <style>*{-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}</style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Pangolin" rel="stylesheet"> 
+</head>
+<body>
+  <h1>Zombie Smash</h1>
+  <p id="intro">Welcome to Zombie Smash! Looks like you've stumbled across a field of pesky zombies trying to escape their graves and eat our brains! Bash their heads in and send them back to where they came from! The fate of the world rests in your hands.</p>
+  <button id="start">Let's go!</button>
+  <div id="countDownTimer">Time remaining: <span id='timer'></span></div>
+  <div class="score"></div>
+  <div class="board">
+    <div class="row">
+      <div class="hole" id="1">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie1_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+      <div class="hole" id="2">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie2_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+      <div class="hole" id="3">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie3_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+    </div>
+    <div class="row">
+      <div class="hole" id="4">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie2_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+      <div class="hole" id="5">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie1_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+      <div class="hole" id="6">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie2_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+    </div>
+    <div class="row">
+      <div class="hole" id="7">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie3_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+      <div class="hole" id="8">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie2_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+      <div class="hole" id="9">
+        <img class="tombstone" src="decor/tombstone.png">
+        <img class="zombie" src="decor/zombie1_burned.png">
+        <img class="dirt" src="decor/pileOfDirt.png">
+      </div>
+    </div>
+  </div>
+  <button id="reset">Try again</button>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
