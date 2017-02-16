@@ -9,8 +9,13 @@ h1{
 }
 .introZombie{
  margin-left: 10%;
+ height: 120px;
+}
+form{
+  margin-top: 8%;
 }
 p{
+  font-size: 15px;
   max-width: 70%;
   margin: auto;
   padding-top: 15%;
@@ -40,6 +45,7 @@ p{
   width: 15%;
   border-radius: 10%;
   margin-bottom: 5px;
+  min-width: 55px;
 }
 #start{
   height: 40px;
@@ -127,7 +133,7 @@ img{
 #tryAgain{
   display: block;
   margin: auto;
-  min-width: 200px;
-  min-height: 300px;
-  max-width: 40%;
+  padding-top: 15%;
+  min-width: 300px;
+  min-height: 500px;
 }
