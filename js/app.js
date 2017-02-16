@@ -4,9 +4,9 @@ $('document').ready(function(){
 var zombies= $('.zombie');
 var board= $('.board');
 var scoreBoard = $('.score');
-var modalContent = $('#modalContent');
+var tryAgainImg = $('#tryAgain');
 var score = 0;
-var time = 60;
+var time = 10;
 var difficultyLevel;
 var interval;
 var popUpInterval;
@@ -26,6 +26,7 @@ jQuery.fn.invisible = function() {
   $('#countDownTimer').hide();
   board.hide();
   scoreBoard.hide();
+  tryAgainImg.hide();
 
   function randomZombie(min, max){
     min = Math.ceil(0);
@@ -37,6 +38,7 @@ jQuery.fn.invisible = function() {
     event.preventDefault();
     difficultyLevel = $('input[name=difficulty]:checked').val();
     console.log(difficultyLevel);
+    tryAgainImg.hide();
     hideIntro();
     $('form').hide();
     board.show();
@@ -98,35 +100,46 @@ jQuery.fn.invisible = function() {
     if (time == 0){
       console.log('Game over');
       board.hide();
-      switch (score){
-        case (score < 5):
-          $('#modalContent').html("Score: " + score + "\nOh dear. Hope you're a better runner.");
-          break;
-        case (score< 10):
-          modalContent.html("Score: " + score + "\nOh no! Those zombies really got the best of you!");
-          break;
-        case (score< 20):
-          modalContent.html("Score: " + score + "\nOh my. Some of them definitely escaped.");
-          break;
-        case (score < 30):
-          modalContent.html("Score: " + score + "\nYou're pretty good at smashing zombies!");
-          break;
-        case (score < 50):
-          modalContent.html("Score: " + score + "\nThanks to you the world is a safer place!");
-          break;
-        case (score > 50):
-          modalContent.html("Score: " + score + "\nYou're the best around!");
-          console.log("I thought about it and naw");
-      }
+      scoreBoard.hide();
+      $('#countDownTimer').hide();
+      endScoreMessage();
       $('.modal').show();
     }
   }
 
+  function endScoreMessage(){
+    console.log(score);
+    switch(score){
+      case 0:
+        $('#modalContent').html("Score: " + score + '<br>' + "Have fun being a zombie. You're doomed.");
+        break;
+      case (score < 5):
+        $('#modalContent').html("Score: " + score + '<br>' + "Oh dear. Hope you're a better runner.");
+        break;
+      case (score < 10):
+        $('#modalContent').html("Score: " + score + '<br>' + "Oh no! Those zombies really got the best of you!");
+        break;
+      case (score < 20):
+        $('#modalContent').html("Score: " + score + '<br>' + "Oh my. Some of them definitely escaped.");
+        break;
+      case (score < 30):
+        $('#modalContent').html("Score: " + score + '<br>' + "You're pretty good at smashing zombies!");
+        break;
+      case (score < 50):
+        $('#modalContent').html("Score: " + score + '<br>' + "Thanks to you the world is a safer place!");
+        break;
+      case (score > 50):
+        $('#modalContent').html("Score: " + score + '<br>' + "You're the best around!");
+        break;
+    }
+  }
 
   $('#reset').on('click', function(){
     time = 60;
     score = 0;
-    showScore();
+    scoreBoard.hide();
+    tryAgainImg.show();
+    board.hide();
     zsShown = 0;
     clearInterval(interval);
     timer();

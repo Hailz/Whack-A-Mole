@@ -46,6 +46,8 @@ p{
   margin-left: 15%;
 }
 #reset{
+  margin: auto;
+  margin-top: 2%;
   display: none;
 }
 .board{
@@ -90,7 +92,6 @@ p{
   height: 90px;
   position: relative;
   top: -98px;
-  /*left: -10px;*/
   z-index: 3;
 }
 .zombie{
@@ -108,7 +109,25 @@ img{
 .modal{
   background-color: green;
   max-width: 75%;
-  max-height: 35%;
+  max-height: 200px;
   margin: auto;
   border-radius: 15%;
+}
+#modalContent{
+  padding: 5px;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  margin: 2%;
+}
+.modalZombie{
+ margin: auto;
+}
+#tryAgain{
+  display: block;
+  margin: auto;
+  min-width: 200px;
+  min-height: 300px;
+  max-width: 40%;
 }
