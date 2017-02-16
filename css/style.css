@@ -7,6 +7,9 @@ body{
 h1{
   font-family: 'Pangolin', cursive;
 }
+.introZombie{
+ margin-left: 10%;
+}
 p{
   max-width: 70%;
   margin: auto;
@@ -15,8 +18,13 @@ p{
 }
 .score{
   display: inline-block;
-  background-color: darkGray;
-
+  background-image: url("../decor/sign1.png");
+  background-size: 100%;
+  color: darkRed;
+  font-size: 20px;
+  width: 90px;
+  border-radius: 2%;
+  margin: auto;
 }
 #countDownTimer{
   background-color: darkGray;
@@ -27,7 +35,7 @@ p{
   padding-top: 1%;
   display: inline-block;
 }
-button{
+.button{
   color: darkRed;
   width: 15%;
   border-radius: 10%;
@@ -35,14 +43,15 @@ button{
 }
 #start{
   height: 40px;
+  margin-left: 15%;
 }
 #reset{
   display: none;
 }
 .board{
   width: 90%;
-  max-width: 600px;
-  max-height: 600px;
+  max-width: 800px;
+  max-height: 800px;
   min-width: 320px;
   background-image: url('../decor/grass.png');
   background-size: 100%;
@@ -54,8 +63,12 @@ button{
   box-shadow: 0 0 8px 8px black inset;
 }
 .row{
-  max-width: 700px;
+  max-width: 800px;
   min-width: 320px;
+  margin: auto;
+}
+.short{
+  max-width: 550px;
 }
 .hole{
   display: inline-block;
@@ -91,4 +104,11 @@ button{
 }
 img{
   height: 95px;
+}
+.modal{
+  background-color: green;
+  max-width: 75%;
+  max-height: 35%;
+  margin: auto;
+  border-radius: 15%;
 }
