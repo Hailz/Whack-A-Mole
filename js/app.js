@@ -5,16 +5,18 @@ var scoreBoard = $('.score');
 var tryAgainImg = $('#tryAgain');
 var score = 0;
 var time = 10;
+var zsShown = 0;
+var level = 1;
 var difficulty;
 var interval;
 var popUpInterval;
 var hiddenInterval;
 var zombieUp;
-var zsShown = 0;
+var hitZombie;
 
+//things still in development
 localStorage.highScore = [ ];
-var kapowImg = '<img id="kapow" src="./decor/Kapow.png"/>';
-var level = 1;
+var kapowImg = '<img id="kapow" src="./decor/Kapow.png">';
 
 //--Sound file stuff--
 //intro music
@@ -35,11 +37,10 @@ gameMusic.src = './decor/sugarPlumFairy.mp3';
 gameMusic.volume = 0.5;
 gameMusic.autoPlay = false;
 gameMusic.preLoad = true;
-
+//Plugin to allow for CSS alteration where it normally wouldn't
 jQuery.fn.visible = function() {
     return this.css('visibility', 'visible');
 };
-
 jQuery.fn.invisible = function() {
     return this.css('visibility', 'hidden');
 };
@@ -71,7 +72,6 @@ jQuery.fn.invisible = function() {
     interval = setInterval(timer, 1000);
     checkLevel();
     popUp();
-    clickZombie();
   });
 //Things that need to be hidden after you click "Let's go!"
   function hideIntro(){
@@ -94,16 +94,20 @@ jQuery.fn.invisible = function() {
       gameEnd();
     }
   };
-//Level2
+//Check for level advancement and shorten popup length
   function checkLevel(){
     switch (level) {
       case 2:
         difficulty -= 20;
-        console.log('new difficulty rate '+ difficulty);
         break;
       case 3:
         difficulty -= 20;
-        console.log('new difficulty rate ' + difficulty);
+        break;
+      case 4:
+        difficulty -= 20;
+        break;
+      case 5:
+        difficulty -= 20;
         break;
     }
   }
@@ -117,28 +121,35 @@ jQuery.fn.invisible = function() {
 //What actually shows/hides the zombies and accepts the difficulty level
   function showZombie(){
     zsShown ++;
-    console.log("#ofZsShown:" + zsShown);
     zombieUp=randomZombie();
     zombies[zombieUp].style.visibility='visible';
     setTimeout(function hideZombie(){
       hiddenInterval = zombies[zombieUp].style.visibility='hidden';
-    },difficulty);
+    }, difficulty);
+    clickZombie();
   }
 //Hides zombie when clicked and adds to the score
   function clickZombie(){
     zombies.on('click', function(){
       impactSound.play();
-      //$(this).append(kapowImg);
+      hitZombie = this;
+      $(this).replaceWith(kapowImg); 
+      showHit();
       score= score+1;
       showScore()
-      console.log("score:" + score);
       $(this).invisible();
+      zombies.off('click');
     })
+  }
+//Show kapow
+  function showHit(){
+    setTimeout(function revertImage(){
+        revertInterval = $("#kapow").replaceWith(hitZombie);
+      }, 100); 
   }
 //Hides a bunch of stuff and shows the end game score board message
   function gameEnd(){
     if (time == 0){
-      console.log('Game over');
       board.hide();
       scoreBoard.hide();
       $('#countDownTimer').hide();
@@ -147,14 +158,13 @@ jQuery.fn.invisible = function() {
       // var newScore = JSON.stringify(score);
       // localStorage.highScore.push(newScore);
       // localStorage.highScore.sort(function(a,b){return b-a});
-      console.log(localStorage.highScore);
+      //console.log(localStorage.highScore);
       endScoreMessage();
       $('.modal').show();
     }
   }
 //Determines what the end game score board message will say and advance to next level
   function endScoreMessage(){
-    console.log(score);
     switch(true){
       case (score == 0):
         $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "Have fun being a zombie. You're doomed.");
@@ -179,7 +189,6 @@ jQuery.fn.invisible = function() {
         break;
     }
     level++;
-    console.log(level);
   }
 //All the things that need to get reset when you click "Try again!"
   $('#reset').on('click', function(){
@@ -193,7 +202,6 @@ jQuery.fn.invisible = function() {
     board.hide();
     clearInterval(interval);
     timer();
-    zombies.off('click');
     clearTimeout(popUpInterval);
     clearTimeout(hiddenInterval);
     $('#countDownTimer').hide();

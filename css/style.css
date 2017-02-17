@@ -118,6 +118,10 @@ p{
 #kapow{
   position: relative;
   z-index: 999;
+  top: -80px;
+  width: 80px;
+  height: 90px;
+  visibility: visible;
 }
 .modal{
   background-color: green;
