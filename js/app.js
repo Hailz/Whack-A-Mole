@@ -47,7 +47,6 @@ jQuery.fn.visible = function() {
 jQuery.fn.invisible = function() {
     return this.css('visibility', 'hidden');
 };
-
 // prepare game screen by hiding unnecessary things
   $('#countDownTimer').hide();
   $('#nextLevel').hide();
@@ -61,8 +60,8 @@ jQuery.fn.invisible = function() {
     max = Math.floor(8);
     return Math.floor(Math.random()*(max-min+1))+min;
   }
-// Allll the things that happen when you click "Let's go!"
-  $('#start').on('click', function(){
+// All the things that happen when you click "Let's go!"
+  $('#start').on('click', function(event){
     event.preventDefault();
     introMusic.pause();
     gameMusic.play();
