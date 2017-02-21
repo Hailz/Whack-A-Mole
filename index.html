@@ -11,7 +11,7 @@
   <h1>Zombie Smash</h1>
   <p id="intro">Welcome to Zombie Smash! Looks like you've stumbled across a field of pesky zombies trying to escape their graves and eat our brains! Bash their heads in and send them back to where they came from! The fate of the world rests in your hands.</p>
   <form>
-    <input type="radio" name="difficulty" value="1500"><label class="radio">Easy</label>
+    <input type="radio" name="difficulty" value="1500" checked><label class="radio">Easy</label>
     <input type="radio" name="difficulty" value="800"><label class="radio">Medium</label>
     <input type="radio" name="difficulty" value="500"><label class="radio">Hard</label>
     <input type="radio" name="difficulty" value="200"><label class="radio">Ridiculus</label>
@@ -29,12 +29,11 @@
     <div class="modalBody">
       <img src="decor/zombie3_burned.png" class="modalZombie">
       <p id="modalContent">Score:</p>
-      <ol class="highScoreBoard">
-        <label>High Scores</label>
-        <li id="first"></li>
-        <li id="second"></li>
-        <li id="third"></li>
-      </ul>
+      <div>
+        <ol id="highScoreBoard">
+          <label>High Scores</label>
+        </ol>
+      </div>
     </div>
   </div>
   <div class="board">
@@ -92,6 +91,7 @@
   </div>
   <img src="decor/tryAgain.jpg" id="tryAgain">
   <button class="button" id="reset">Try again</button>
+  <button class="button" id="nextLevel">Next level</button>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
 </body>

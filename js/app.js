@@ -3,6 +3,7 @@ var zombies = $('.zombie');
 var board = $('.board');
 var scoreBoard = $('.score');
 var tryAgainImg = $('#tryAgain');
+var kapowImg = '<img id="kapow" src="./decor/Kapow.png">';
 var score = 0;
 var time = 10;
 var zsShown = 0;
@@ -11,19 +12,23 @@ var difficulty;
 var interval;
 var popUpInterval;
 var hiddenInterval;
+var revertInterval;
 var zombieUp;
 var hitZombie;
 
-//things still in development
-localStorage.highScore = [ ];
-var kapowImg = '<img id="kapow" src="./decor/Kapow.png">';
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!things still in development!!!!!!!!!!!!!!!!!!!!!!!!
+var highScoreBoard = document.getElementById('highScoreBoard');
+var highScores = [ ];
+var retrievedScores;
 
-//--Sound file stuff--
+
+//----------Sound file stuff----------
 //intro music
 var introMusic = document.createElement('audio');
 introMusic.src = './decor/danger_zone.mp3';
 introMusic.volume = 1;
-introMusic.autoPlay = true;
+introMusic.autoPlay = false;
+introMusic.loop = true;
 introMusic.preLoad = true;
 //impact
 var impactSound = document.createElement("audio");
@@ -36,6 +41,7 @@ var gameMusic = document.createElement('audio');
 gameMusic.src = './decor/sugarPlumFairy.mp3';
 gameMusic.volume = 0.5;
 gameMusic.autoPlay = false;
+gameMusic.loop = true;
 gameMusic.preLoad = true;
 //Plugin to allow for CSS alteration where it normally wouldn't
 jQuery.fn.visible = function() {
@@ -47,6 +53,7 @@ jQuery.fn.invisible = function() {
 
 // prepare game screen by hiding unnecessary things
   $('#countDownTimer').hide();
+  $('#nextLevel').hide();
   board.hide();
   scoreBoard.hide();
   tryAgainImg.hide();
@@ -72,6 +79,7 @@ jQuery.fn.invisible = function() {
     interval = setInterval(timer, 1000);
     checkLevel();
     popUp();
+    clickZombie();
   });
 //Things that need to be hidden after you click "Let's go!"
   function hideIntro(){
@@ -96,24 +104,11 @@ jQuery.fn.invisible = function() {
   };
 //Check for level advancement and shorten popup length
   function checkLevel(){
-    switch (level) {
-      case 2:
-        difficulty -= 20;
-        break;
-      case 3:
-        difficulty -= 20;
-        break;
-      case 4:
-        difficulty -= 20;
-        break;
-      case 5:
-        difficulty -= 20;
-        break;
+    difficulty -= (level * 20);
     }
-  }
 //Controls how often zombies pop up
   function popUp(){
-    if (time >0){
+    if (time > 0){
       showZombie();
       popUpInterval = setTimeout(popUp, 1500);
     }
@@ -121,24 +116,22 @@ jQuery.fn.invisible = function() {
 //What actually shows/hides the zombies and accepts the difficulty level
   function showZombie(){
     zsShown ++;
-    zombieUp=randomZombie();
+    zombieUp = randomZombie();
     zombies[zombieUp].style.visibility='visible';
     setTimeout(function hideZombie(){
       hiddenInterval = zombies[zombieUp].style.visibility='hidden';
     }, difficulty);
-    clickZombie();
   }
 //Hides zombie when clicked and adds to the score
   function clickZombie(){
-    zombies.on('click', function(){
+    board.delegate('.zombie', 'click', function(){
       impactSound.play();
       hitZombie = this;
       $(this).replaceWith(kapowImg); 
       showHit();
-      score= score+1;
+      score++;
       showScore()
       $(this).invisible();
-      zombies.off('click');
     })
   }
 //Show kapow
@@ -155,14 +148,32 @@ jQuery.fn.invisible = function() {
       $('#countDownTimer').hide();
       gameMusic.pause();
       introMusic.play();
-      // var newScore = JSON.stringify(score);
-      // localStorage.highScore.push(newScore);
-      // localStorage.highScore.sort(function(a,b){return b-a});
-      //console.log(localStorage.highScore);
+
+      var newScore = score;
+      highScores.push(newScore);
+      console.log(highScores);
+      localStorage.setItem('highScoreBoard', JSON.stringify(highScores));
+      retrievedScores = JSON.parse(localStorage.getItem('highScoreBoard'));
+
+      populateScoreBoard();
       endScoreMessage();
       $('.modal').show();
+      $('#nextLevel').show();
     }
   }
+//Generate high score board content
+  function populateScoreBoard(){
+    retrievedScores.sort(function(a,b){return b-a});
+    console.log(retrievedScores);
+    if (retrievedScores.length == 4){
+      delete retrievedScores[3];
+    }
+    $('li').remove();
+    for (var i = 0; i < retrievedScores.length; i++) {
+      highScoreBoard.innerHTML += "<li>" + retrievedScores[i];
+    }
+  }
+
 //Determines what the end game score board message will say and advance to next level
   function endScoreMessage(){
     switch(true){
@@ -176,23 +187,22 @@ jQuery.fn.invisible = function() {
         $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "Oh no! Those zombies really got the best of you!");
         break;
       case (score < 20):
-        $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "Oh my. Some of them definitely escaped.");
+        $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "Oh my. " + (zsShown - score) + " escaped.");
         break;
       case (score < 30):
-        $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "You're pretty good at smashing zombies!");
+        $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "You're alright at smashing zombies.");
         break;
-      case (score < 50):
+      case (score < 40):
         $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "Thanks to you the world is a safer place!");
         break;
-      case (score > 50):
+      case (score >= 40):
         $('#modalContent').html("Level: " + level + " " + "Score: " + score + "/" + zsShown + '<br>' + "How did you do that?! You're the best around!");
         break;
     }
-    level++;
   }
-//All the things that need to get reset when you click "Try again!"
-  $('#reset').on('click', function(){
-    time = 60;
+//All the things that need to get reset when you click "Try again!" or "Next level"
+  function reset(){
+    time = 10;
     score = 0;
     zsShown = 0;
     gameMusic.pause();
@@ -201,18 +211,29 @@ jQuery.fn.invisible = function() {
     tryAgainImg.show();
     board.hide();
     clearInterval(interval);
+    board.off('click');
     timer();
     clearTimeout(popUpInterval);
     clearTimeout(hiddenInterval);
+    clearTimeout(revertInterval);
     $('#countDownTimer').hide();
     $('#start').show();
     $('#reset').hide();
     $('.modal').hide(); 
     $('form').show();
+  }
+//"Try again" button
+  $('#reset').on('click', function(){
+    reset();
+    $('#nextLevel').hide();
+  })
+//"Next level" button
+  $('#nextLevel').on('click', function(){
+    reset();
+    $('#nextLevel').hide();
+    level++;
   })
 
 });
 
 //save scores to server
-//Multi level game?
-//add a hit image

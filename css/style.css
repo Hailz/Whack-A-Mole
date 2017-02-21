@@ -28,8 +28,9 @@ p{
 }
 .score{
   display: inline-block;
-  background-image: url("../decor/sign1.png");
+  background-image: url("../decor/signBurned.png");
   background-size: 100%;
+  background-repeat: no-repeat;
   color: darkRed;
   font-size: 20px;
   width: 90px;
@@ -38,6 +39,7 @@ p{
 }
 #countDownTimer{
   background-color: darkGray;
+  color: darkRed;
   width: 150px;
   height: 30px;
   margin: auto;
@@ -58,14 +60,14 @@ p{
 }
 #reset{
   margin: auto;
-  margin-top: 2%;
+  margin-top: 1%;
   display: none;
 }
 .board{
   width: 90%;
   max-width: 800px;
   max-height: 800px;
-  min-width: 320px;
+  min-width: 400px;
   background-image: url('../decor/grass.png');
   background-size: 100%;
   /*background-color: green;*/
@@ -103,7 +105,7 @@ p{
   width: 120px;
   height: 90px;
   position: relative;
-  top: -100px;
+  top: -110px;
   z-index: 3;
 }
 .zombie{
@@ -126,12 +128,13 @@ p{
 .modal{
   background-color: green;
   max-width: 75%;
-  max-height: 200px;
+  max-height: 35%;
   margin: auto;
   border-radius: 15%;
 }
 #modalContent{
   padding: 5px;
+  max-height: 90%;
   display: inline-block;
   color: white;
   text-align: center;
@@ -144,14 +147,14 @@ p{
  top: -13px;
  height: 95px;
 }
-.highScoreBoard{
+#highScoreBoard{
   display: inline-block;
   margin: auto;
 }
 #tryAgain{
   display: block;
   margin: auto;
-  padding-top: 15%;
-  min-width: 300px;
-  min-height: 500px;
+  padding-top: 10%;
+  min-width: 15%;
+  min-height: 20%;
 }
