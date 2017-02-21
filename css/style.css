@@ -148,6 +148,10 @@ p{
  height: 95px;
 }
 #highScoreBoard{
+  margin: auto;
+  max-width: 35px;
+}
+#highScoreDiv{
   display: inline-block;
   margin: auto;
 }

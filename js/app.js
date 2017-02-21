@@ -5,7 +5,7 @@ var scoreBoard = $('.score');
 var tryAgainImg = $('#tryAgain');
 var kapowImg = '<img id="kapow" src="./decor/Kapow.png">';
 var score = 0;
-var time = 10;
+var time = 60;
 var zsShown = 0;
 var level = 1;
 var difficulty;
@@ -15,12 +15,9 @@ var hiddenInterval;
 var revertInterval;
 var zombieUp;
 var hitZombie;
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!things still in development!!!!!!!!!!!!!!!!!!!!!!!!
 var highScoreBoard = document.getElementById('highScoreBoard');
 var highScores = [ ];
 var retrievedScores;
-
 
 //----------Sound file stuff----------
 //intro music
@@ -148,13 +145,9 @@ jQuery.fn.invisible = function() {
       $('#countDownTimer').hide();
       gameMusic.pause();
       introMusic.play();
-
-      var newScore = score;
-      highScores.push(newScore);
-      console.log(highScores);
+      highScores.push(score);
       localStorage.setItem('highScoreBoard', JSON.stringify(highScores));
       retrievedScores = JSON.parse(localStorage.getItem('highScoreBoard'));
-
       populateScoreBoard();
       endScoreMessage();
       $('.modal').show();
@@ -164,13 +157,11 @@ jQuery.fn.invisible = function() {
 //Generate high score board content
   function populateScoreBoard(){
     retrievedScores.sort(function(a,b){return b-a});
-    console.log(retrievedScores);
-    if (retrievedScores.length == 4){
-      delete retrievedScores[3];
-    }
     $('li').remove();
     for (var i = 0; i < retrievedScores.length; i++) {
-      highScoreBoard.innerHTML += "<li>" + retrievedScores[i];
+      if (i < 3){
+        highScoreBoard.innerHTML += "<li>" + retrievedScores[i];
+      }
     }
   }
 
@@ -202,7 +193,7 @@ jQuery.fn.invisible = function() {
   }
 //All the things that need to get reset when you click "Try again!" or "Next level"
   function reset(){
-    time = 10;
+    time = 60;
     score = 0;
     zsShown = 0;
     gameMusic.pause();
@@ -233,5 +224,4 @@ jQuery.fn.invisible = function() {
     $('#nextLevel').hide();
     level++;
   })
-
 });
