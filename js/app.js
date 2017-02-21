@@ -235,5 +235,3 @@ jQuery.fn.invisible = function() {
   })
 
 });
-
-//save scores to server
