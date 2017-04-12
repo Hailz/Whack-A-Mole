@@ -213,12 +213,12 @@ jQuery.fn.invisible = function() {
     $('form').show();
   }
 //"Try again" button
-  $('#reset').on('click', function(){
+  $('#reset').on('click', function(event){
     reset();
     $('#nextLevel').hide();
   })
 //"Next level" button
-  $('#nextLevel').on('click', function(){
+  $('#nextLevel').on('click', function(event){
     reset();
     $('#nextLevel').hide();
     level++;
